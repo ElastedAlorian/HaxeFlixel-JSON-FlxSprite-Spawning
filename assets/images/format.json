@@ -1,0 +1,54 @@
+{
+"disclaimer":"This is simply an experimental format for the animation system. There is no guarantee that this may work.",
+
+"executable":"location",
+"name":"Wii Shop Channel",
+"description":null,
+
+"save-icon":null,
+"home-icon":{
+    "sprites":[
+    {
+          "image":"mods/channels/example-image.png",
+          "x":"1",
+          "y":"2",
+          "color":"FFFFFF // Optional, tinted color.",
+          "tween":[
+
+                {
+                    "note":"Most of these are optional.",
+
+                    "speciality":"Refers to the Special Tweens in FlxTween. Exclude or set as null for the default tween.",
+                    "startDelay":5,
+                    "x":12,
+                    "y":20,
+                    "option":"PINGPONG // Refers to the Tweening Options.",
+                    "ease":"Refers to entries in FlxEase.",
+                    "loopDelay":5 "Int."
+                },
+
+            ],
+
+        },
+
+        {
+          "note":"Revo Launcher animation JSOn example. Only used as an example for multiple sprites.",
+          "$type": "FadeOutAnimation, Assembly-CSharp",
+          "ease": "OutQuad",
+          "startTime": 9,
+          "endTime": 10,
+          "loops": false,
+          "loopDelay": 0
+        }
+
+    ]
+
+
+},
+"banner":{
+    "audio":"audio.mp3 or wav or ogg or whatever haxeflixel supports as long as it isnt freaking brcwav",,
+    "sprites":"they go here but i don't know how"
+},
+"sd":"i dunno what this is"
+
+}

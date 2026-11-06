@@ -1,0 +1,26 @@
+{
+
+    "name": "Example Value",
+    "sprites":[
+        {
+            "title":"spriteA",
+            "graphic":"assets/images/num1.png",
+            "x":120,
+            "y":300,
+            "flipX":true,
+            "flipY":true
+        },
+        {
+            "title":"awesomeswagsprite",
+            "graphic":"assets/images/num2.png",
+            "x":220,
+            "y":500,
+            "flipX":false,
+            "flipY":true
+        }
+
+
+    ]
+
+
+}
