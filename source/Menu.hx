@@ -19,8 +19,8 @@ using flixel.util.FlxSpriteUtil;
 
 class Menu  extends FlxState
 {
-	//var parsedFile = haxe.Json.parse(sys.io.File.getContent('assets/data/spawn.json'));
-		var parsedFile = JsonMacro.load(('assets/data/spawn.json'));
+	var parsedFile = haxe.Json.parse(sys.io.File.getContent('assets/data/spawn.json'));
+		//var parsedFile = JsonMacro.load(('assets/data/spawn.json'));
 	var pathSponge:String = "assets/images/";
 
 	var base_holder:FlxSprite;
@@ -60,6 +60,7 @@ class Menu  extends FlxState
 			funny_A = new FlxSprite();
 			//funny_A.loadGraphic("assets/images/num1.png");
 			funny_A.loadGraphic(i.graphic);
+
 				// Built in FlxSprite features
 					if (i.x != null) funny_A.x = i.x;
 					// Basically, checks if the json has an X value for this sprite, and if it does, then it sets the X value. Otherwise it's automatically set to 0. Works similarly for other lines in this code.
@@ -67,23 +68,45 @@ class Menu  extends FlxState
 					if (i.flipX != null) funny_A.flipX = i.flipX;
 					if (i.flipY != null) funny_A.flipY = i.flipY;
 
-				// Optional Features Here
-				if (i.sparrow == true){ // If the JSON has a value called sparrow (bool). Also supports xml (string)
-					// http://api.haxeflixel.com/flixel/graphics/frames/FlxAtlasFrames.html
-					// In this implementation, if there is no "xml" value, then it assumes the "graphic" value does not have the  file extension and thus uses that to grab both a png and xml with the filename!
-					if (i.xml != null){	funny_A.frames = FlxAtlasFrames.fromSparrow(i.graphic, i.xml);}
-					else{ 	funny_A.frames = FlxAtlasFrames.fromSparrow("${i.graphic}.png", "${i.graphic}.xml");}
-				}
+				// Optional yet Built-In
+					if (i.scale != null){
+						funny_A.scale.x = i.scale[0];
+						funny_A.scale.y = i.scale[1];
+					}
 
-				funny_A.updateHitbox();
+				// Optional Features Here
+					if (i.sparrow == true){ // If the JSON has a value called sparrow (bool). Also supports xml (string)
+						if (i.xml != null){
+							funny_A.frames = FlxAtlasFrames.fromSparrow(i.graphic, i.xml);
+						}else{
+							funny_A.frames = FlxAtlasFrames.fromSparrow('${i.graphic}.png', '${i.graphic}.xml');
+						}
+
+						// I don't plan on making this support too complex animation stuff, and only animations for Atlases/Sparrows. Only the simplest of things for it. Maybe if I turn this into a Haxelib, then I'd support a lot more animation formats. Only prefixes are supported. *No Indices! Code that yourself, and if you're lazy, have a friend that is NOT ChatGPT do it for you!*
+						if (i.animations != null){ // Checks to see if it's not null, and then proceeds.
+								var spriteAnims:Array<Dynamic> = i.animations;
+
+								for (craftedAnimConfigs in spriteAnims){
+									funny_A.animation.addByPrefix(craftedAnimConfigs[0], craftedAnimConfigs[1], craftedAnimConfigs[2]);
+									// Animation name, animation in XML file, and framerate.
+								}
+
+								if (i.startAnim != null){funny_A.animation.play(i.startAnim);}
+						}else{
+							if (i.startAnim != null){trace("You're attempting to make sprite [" + i + "] (Named: " + i.name + ") play an animation despite it lacking any! Please check your configuration!");}
+						}
+					}
+
+
+			funny_A.updateHitbox();
 			spriteCollection.add(funny_A);
-			trace("Array [i]: " + i.graphic);
+			//trace("Array [i]: " + i.graphic);
 		}
 		// https://try.haxe.org/#76598A8f // ME
 		// https://try.haxe.org/#068Cf7CA // SEMMI ADJUSTMENT, DANKE
 		// So basically, instead of me trying to do "menuEntries[i].value" I needed to do "i.value" which makes a lot more sense now!
 
-		 for (entrie in menuEntries) trace(entrie.flipX);
+		// for (entrie in menuEntries) trace(entrie.flipX);
 
 
 	}

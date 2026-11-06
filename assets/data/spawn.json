@@ -25,7 +25,13 @@
             "x":220,
             "y":500,
             "flipX":false,
-            "flipY":false
+            "flipY":false,
+            "scale":[0.25, 0.25],
+            "animations":[
+                ["Emote", "BF HEY!!", 24],
+                ["Idle", "BF idle dance", 24]
+            ],
+            "startAnim":"Idle"
         },
         {"graphic":"assets/images/banner-background.png", "x":15, "y":600}
 
